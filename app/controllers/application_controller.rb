@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= User.find(auth_token[:user_id])
+    @current_user ||= User.find(auth_token[0]["user_id"])
   rescue JWT::DecodeError
     nil
   end

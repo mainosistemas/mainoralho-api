@@ -3,4 +3,6 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
+
+  has_many :projects, foreign_key: :owner_id, dependent: :restrict_with_error
 end

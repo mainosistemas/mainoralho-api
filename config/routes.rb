@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   post 'auth_user' => 'authentication#auth'
+
+  resources :registrations, only: :create
 end

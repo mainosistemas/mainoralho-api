@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
+
   def index
-    render json: { data: current_user.projects.as_json }
+    paginate json: current_user.projects.as_json
   end
 
   def create

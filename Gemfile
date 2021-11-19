@@ -34,6 +34,8 @@ gem "bcrypt", "~> 3.1.7"
 # gem "rack-cors"
 
 gem "jwt"
+gem "will_paginate"
+gem "api-pagination"
 
 group :development, :test do
   # Start debugger with binding.b [https://github.com/ruby/debug]

@@ -59,6 +59,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    api-pagination (5.0.0)
     bcrypt (3.1.16)
     bootsnap (1.9.1)
       msgpack (~> 1.0)
@@ -142,6 +143,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    will_paginate (3.3.1)
     zeitwerk (2.5.1)
 
 PLATFORMS
@@ -149,6 +151,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  api-pagination
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   debug (>= 1.0.0)
@@ -157,6 +160,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.0.alpha2)
   tzinfo-data
+  will_paginate
 
 RUBY VERSION
    ruby 3.0.2p107

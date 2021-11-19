@@ -8,7 +8,7 @@
 	"workspaceFolder": "/workspace",
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": { 
+	"settings": {
 		"sqltools.connections": [
 			{
 				"name": "Rails Development Database",
@@ -18,7 +18,7 @@
 				"port": 5432,
 
 				// update this to match config/database.yml
-				"database": "app_development",
+				"database": "mainoralho_api_development",
 				"username": "vscode"
 			},
 			{
@@ -29,7 +29,7 @@
 				"port": 5432,
 
 				// update this to match config/database.yml
-				"database": "app_test",
+				"database": "mainoralho_api_test",
 				"username": "vscode"
 			}
 		]
@@ -39,14 +39,15 @@
 	"extensions": [
 		"rebornix.Ruby",
 		"mtxr.sqltools",
-		"mtxr.sqltools-driver-pg"
+		"mtxr.sqltools-driver-pg",
+		"ms-vsliveshare.vsliveshare"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [3000, 5432],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "bundle install && rake db:setup",
+	"postCreateCommand": "bundle install && rake db:setup",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"

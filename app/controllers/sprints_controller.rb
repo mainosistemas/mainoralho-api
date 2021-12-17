@@ -4,7 +4,8 @@ class SprintsController < ApplicationController
   end
 
   def create
-    if @sprint = current_user.sprint.create(sprint_attributes)
+    @sprint = current_user.sprint.new(sprint_attributes)
+    if @sprint.save
       render json: { data: { sprint: @sprint.as_json } }, status: :created
     else
       render json: { data: { errors: @sprint.errors.full_messages } }, status: :unprocessable_entity

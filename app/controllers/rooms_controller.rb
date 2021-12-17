@@ -5,8 +5,9 @@ class RoomsController < ApplicationController
   end
 
   def create
-    if @room = current_user.rooms.create(room_attributes)
-      render json: { data: { project: @room.as_json } }, status: :created
+    @room = current_user.rooms.new(room_attributes)
+    if @room.save
+      render json: { data: { room: @room.as_json } }, status: :created
     else
       render json: { data: { errors: @room.errors.full_messages } }, status: :unprocessable_entity
     end

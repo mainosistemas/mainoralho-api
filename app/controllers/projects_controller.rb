@@ -5,7 +5,8 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    if @project = current_user.projects.create(project_attributes)
+    @project = current_user.projects.new(project_attributes)
+    if @project.save
       render json: { data: { project: @project.as_json } }, status: :created
     else
       render json: { data: { errors: @project.errors.full_messages } }, status: :unprocessable_entity

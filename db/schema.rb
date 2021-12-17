@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_17_174152) do
+ActiveRecord::Schema.define(version: 2021_12_17_191812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 2021_12_17_174152) do
     t.index ["sprint_id"], name: "index_tasks_on_sprint_id"
   end
 
+  create_table "user_votes", force: :cascade do |t|
+    t.integer "score", null: false
+    t.bigint "owner_id"
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_user_votes_on_owner_id"
+    t.index ["task_id"], name: "index_user_votes_on_task_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -69,4 +79,6 @@ ActiveRecord::Schema.define(version: 2021_12_17_174152) do
   add_foreign_key "sprints", "users", column: "owner_id"
   add_foreign_key "tasks", "sprints"
   add_foreign_key "tasks", "users", column: "owner_id"
+  add_foreign_key "user_votes", "tasks"
+  add_foreign_key "user_votes", "users", column: "owner_id"
 end

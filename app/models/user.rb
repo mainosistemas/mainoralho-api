@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :projects, foreign_key: :owner_id, dependent: :restrict_with_error
   has_many :sprints, foreign_key: :owner_id, dependent: :restrict_with_error
   has_many :rooms,    foreign_key: :owner_id, dependent: :restrict_with_error
+  has_many :tasks, foreign_key: :owner_id, dependent: :restrict_with_error
 end

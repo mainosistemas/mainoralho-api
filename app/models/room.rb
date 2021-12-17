@@ -1,5 +1,5 @@
 class Room < ApplicationRecord
   validates :name, presence: true
 
-  belongs_to :project
+  belongs_to :sprint
 end

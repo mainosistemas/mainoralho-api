@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
-  belongs_to :sprint
+  validates :name, presence: true
 
+  belongs_to :sprint
 end

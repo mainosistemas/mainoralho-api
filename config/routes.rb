@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :rooms
 
   resources :projects
+
+  resources :sprints
 end

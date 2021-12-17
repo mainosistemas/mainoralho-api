@@ -15,6 +15,6 @@ class RoomsController < ApplicationController
   private
 
   def room_attributes
-    params.require(:room).permit(:name, :project_id)
+    params.require(:room).permit(:name, :sprint_id)
   end
 end

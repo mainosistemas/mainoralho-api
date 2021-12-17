@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.task.new(task_params)
+    @task = current_user.tasks.new(task_params)
     if @task.save
       render json: { data: { task: @task.as_json } }, status: :created
     else
@@ -16,6 +16,6 @@ class TasksController < ApplicationController
   private 
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :sprint_id)
   end
 end

@@ -4,7 +4,7 @@ class SprintsController < ApplicationController
   end
 
   def create
-    @sprint = current_user.sprint.new(sprint_attributes)
+    @sprint = current_user.sprints.new(sprint_attributes)
     if @sprint.save
       render json: { data: { sprint: @sprint.as_json } }, status: :created
     else

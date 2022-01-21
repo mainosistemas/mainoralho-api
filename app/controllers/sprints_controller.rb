@@ -12,6 +12,12 @@ class SprintsController < ApplicationController
     end
   end
 
+  def show
+    binding.pry
+    @sprint = current_user.sprints.find(params[:id])
+    render json: { sprint: @sprint.as_json }, status: :success
+  end
+
   private
 
   def sprint_attributes

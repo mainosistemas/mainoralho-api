@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: :show
+  before_action :set_task, only: %i[show update]
 
   def index
     return head :no_content if current_user.tasks.empty?
@@ -9,7 +9,7 @@ class TasksController < ApplicationController
 
   def show
     if @task
-      render json: @task, status: :ok
+      render json: @task, include: [:sprint, { votes: { include: :user } }], status: :ok
     else
       head :no_content
     end
@@ -17,10 +17,19 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.new(task_params)
+
     if @task.save
       render json: @task, status: :created
     else
       render json: @task.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+ 
+  def update
+    if @task.update(task_params)
+      render json: { data: { task: @task.as_json } }, status: :ok
+    else
+      render json: { data: { errors: @task.errors.full_messages } }, status: :unprocessable_entity
     end
   end
 
@@ -31,6 +40,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :sprint_id)
+    params.require(:task).permit(:name, :description, :sprint_id, :status_votation, :start_votation_time, :finish_votation_time, :limit_votation_time)
   end
 end

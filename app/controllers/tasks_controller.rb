@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show update]
 
   def index
-    return head :no_content if current_user.tasks.empty?
+    #return head :no_content if current_user.tasks.empty?
 
     paginate json: current_user.tasks, status: :ok
   end

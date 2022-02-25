@@ -17,7 +17,7 @@ class UserVotesController < ApplicationController
   end
 
   def vote_params
-    params.require(:vote).permit(:score)
+    params.require(:vote).permit(:score, :voted_moment_time)
   end
 
   def set_sprint

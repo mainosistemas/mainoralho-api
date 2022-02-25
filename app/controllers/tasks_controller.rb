@@ -29,6 +29,13 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find_by_id(params[:id])
   end
+  
+  def show
+    @task = Task.find(params[:id])
+    render json: { data: { task: @task } }, include: [:sprint, { votes: { include: :user } }]
+  end
+
+  private
 
   def task_params
     params.require(:task).permit(:name, :description, :sprint_id)

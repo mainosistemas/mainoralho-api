@@ -28,5 +28,3 @@
 
 .ruby-gemset
 .tool-versions
-
-/config/database.yml

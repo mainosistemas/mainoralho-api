@@ -17,6 +17,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.new(task_params)
+
     if @task.save
       render json: @task, status: :created
     else
@@ -30,6 +31,14 @@ class TasksController < ApplicationController
     @task = Task.find_by_id(params[:id])
   end
   
+  def update
+    if @task.update(task_params)
+      render json: { data: { task: @task.as_json } }, status: :sucess
+    else
+      render json: { data: { errors: @task.errors.full_messages } }, status: :unprocessable_entity
+    end
+  end
+
   def show
     @task = Task.find(params[:id])
     render json: { data: { task: @task } }, include: [:sprint, { votes: { include: :user } }]

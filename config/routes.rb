@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   resources :projects
 
-  resources :sprints
+  resources :sprints, only: %i[index create]
 
-  resources :tasks, only: %i[index show create]
+  resources :tasks, only: %i[index show create] do
+    resources :user_votes, only: %i[index create]
+  end
 end

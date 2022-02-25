@@ -6,9 +6,9 @@ class UserVotesController < ApplicationController
   def create
     @vote = current_user.votes.new(vote_params)
     if @vote.save
-      render json: { data: { vote: @vote.as_json } }, status: :created
+      render json: @vote, status: :created
     else
-      render json: { data: { errors: @vote.errors.full_messages } }, status: :unprocessable_entity
+      render json: @vote.errors.full_messages, status: :unprocessable_entity
     end
   end
 

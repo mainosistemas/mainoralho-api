@@ -23,6 +23,14 @@ class TasksController < ApplicationController
       render json: @task.errors.full_messages, status: :unprocessable_entity
     end
   end
+ 
+  def update
+    if @task.update(task_params)
+      render json: @task, status: :ok
+    else
+      render json: @task.errors.full_messages, status: :unprocessable_entity
+    end
+  end
 
   private
 

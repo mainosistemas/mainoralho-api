@@ -47,6 +47,10 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :sprint_id)
+    params.require(:task).permit(:name, :description, :sprint_id, :status_votation, :start_votation_time, :finish_votation_time, :limit_votation_time)
+  end
+
+  def set_task() 
+    @task = Task.find(params[:id])
   end
 end

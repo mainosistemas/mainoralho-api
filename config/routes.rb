@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  post 'auth_user' => 'authentication#auth'
+  post "auth_user" => "authentication#auth"
 
   resources :registrations, only: :create
 
@@ -7,5 +7,5 @@ Rails.application.routes.draw do
 
   resources :sprints
 
-  resources :tasks, only: [:index, :create]
+  resources :tasks, only: %i[index show create]
 end

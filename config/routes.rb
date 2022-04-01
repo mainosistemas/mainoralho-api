@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   post "auth_user" => "authentication#auth"
+  post 'password/forgot', to: 'passwords#forgot'
+  post 'password/reset', to: 'passwords#reset'
 
   resources :registrations, only: :create
 

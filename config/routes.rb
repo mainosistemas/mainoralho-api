@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   resources :tasks, only: %i[index create show update] do
     resources :user_votes, only: %i[index create]
   end
+
+  mount ActionCable.server => '/websockets'
 end

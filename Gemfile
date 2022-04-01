@@ -12,6 +12,9 @@ gem 'pry', '~> 0.13.1'
 gem 'puma', '~> 5.0'
 gem 'rack-cors'
 gem 'rails', '~> 7.0.0.alpha2'
+gem 'redis-namespace'
+gem 'redis-rails'
+gem 'sneakers'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'will_paginate'
 

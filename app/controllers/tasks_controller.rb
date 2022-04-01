@@ -27,9 +27,9 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      render json: { data: { task: @task.as_json } }, status: :ok
+      render json: task: @task.as_json, status: :ok
     else
-      render json: { data: { errors: @task.errors.full_messages } }, status: :unprocessable_entity
+      render json: errors: @task.errors.full_messages, status: :unprocessable_entity
     end
   end
 

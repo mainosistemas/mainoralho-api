@@ -9,7 +9,7 @@ class TasksController < ApplicationController
 
   def show
     if @task
-      render json: @task, include: [:sprint, { votes: { include: :user } }], status: :ok
+      render json: @task, include: [:sprint, { votes: { include: :user } }], methods: :trend_voted, status: :ok
     else
       head :no_content
     end

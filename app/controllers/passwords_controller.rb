@@ -3,17 +3,19 @@ class PasswordsController < ApplicationController
 
   def forgot
     if params[:email].blank?
-      return render json: {error: 'Email not present'}
+      return render json: {error: 'Email não está presente'}
     end
   
     user = User.find_by(email: params[:email])
   
     if user.present?
       user.generate_password_token!
-      # SEND EMAIL HERE
+
+      UserMailer.with(user: user).recovery_password_email.deliver_later
+
       render json: {token: user.reset_password_token}, status: :ok
     else
-      render json: {error: ['Email address not found. Please check and try again.']}, status: :not_found
+      render json: {error: ['Endereço de email não encontrado. Por favor verifique e tente novamente.']}, status: :not_found
     end
   end
 
@@ -21,7 +23,7 @@ class PasswordsController < ApplicationController
     token = params[:token].to_s
   
     if params[:token].blank?
-      return render json: {error: 'Token not present'}
+      return render json: {error: 'Token não está presente'}
     end
   
     user = User.find_by(reset_password_token: token)
@@ -33,7 +35,7 @@ class PasswordsController < ApplicationController
         render json: {error: user.errors.full_messages}, status: :unprocessable_entity
       end
     else
-      render json: {error:  ['Link not valid or expired. Try generating a new link.']}, status: :not_found
+      render json: {error:  ['Link inválido ou expirado. Tente gerar um novo link.']}, status: :not_found
     end
   end
 end

@@ -2,12 +2,14 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.2'
-gem 'api-pagination'
-gem 'bcrypt', '~> 3.1.7'
-gem 'bootsnap', '>= 1.4.4', require: false
 gem 'bunny'
 gem 'jwt'
-gem 'pg', '~> 1.1'
+gem 'figaro'
+gem "api-pagination"
+gem "bcrypt", "~> 3.1.7"
+gem "bootsnap", ">= 1.4.4", require: false
+gem "rails", "~> 7.0.0.alpha2"
+gem "pg", "~> 1.1"
 gem 'pry', '~> 0.13.1'
 gem 'puma', '~> 5.0'
 gem 'rack-cors'

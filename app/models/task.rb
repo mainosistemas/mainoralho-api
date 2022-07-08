@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   validates :name, presence: true
   validates :status_votation, presence: true
+  validates :bio, length: { maximum: 1000 }
 
   belongs_to :sprint
   belongs_to :owner, class_name: 'User'

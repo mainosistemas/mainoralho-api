@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: "chats#show"
+  get 'chats/show'
   post "auth_user" => "authentication#auth"
   post 'password/forgot', to: 'passwords#forgot'
   post 'password/reset', to: 'passwords#reset'
@@ -12,4 +14,6 @@ Rails.application.routes.draw do
   resources :tasks, only: %i[index create show update] do
     resources :user_votes, only: %i[index create]
   end
+
+  mount ActionCable.server => '/cable'
 end

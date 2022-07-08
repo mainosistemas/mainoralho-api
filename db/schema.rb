@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2022_04_01_140849) do
     t.datetime "start_votation_time", precision: 6
     t.datetime "finish_votation_time", precision: 6
     t.datetime "limit_votation_time", precision: 6
+    t.integer "trend_vote"
     t.index ["owner_id"], name: "index_tasks_on_owner_id"
     t.index ["sprint_id"], name: "index_tasks_on_sprint_id"
   end

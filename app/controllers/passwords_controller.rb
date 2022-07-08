@@ -19,9 +19,9 @@ class PasswordsController < ApplicationController
   end
 
   def reset
-    render json: { errors: 'Token não está presente' } and return if @token.blank?
+    render json: { errors: 'Token não está presente' } and return if http_token.blank?
   
-    user = User.find_by(reset_password_token: token)
+    user = User.find_by(reset_password_token: http_token)
   
     if user.present? && user.password_token_valid?
       if user.reset_password!(params[:password])
@@ -37,6 +37,6 @@ class PasswordsController < ApplicationController
   private
 
   def http_token
-    @token ||= (request.headers["Authorization"].split(" ").last if request.headers["Authorization"].present?)
+    @http_token ||= (request.headers["Authorization"].split(" ").last if request.headers["Authorization"].present?)
   end
 end

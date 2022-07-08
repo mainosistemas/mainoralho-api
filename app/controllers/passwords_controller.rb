@@ -1,10 +1,9 @@
 class PasswordsController < ApplicationController
 	skip_before_action :authenticate_user
+  before_action :http_token, only: :reset
 
   def forgot
-    if params[:email].blank?
-      return render json: {error: 'Email não está presente'}
-    end
+    render json: { error: 'Email não está presente' } and return if params[:email].blank?
   
     user = User.find_by(email: params[:email])
   
@@ -20,11 +19,7 @@ class PasswordsController < ApplicationController
   end
 
   def reset
-    token = params[:token].to_s
-  
-    if params[:token].blank?
-      return render json: {error: 'Token não está presente'}
-    end
+    render json: { errors: 'Token não está presente' } and return if @token.blank?
   
     user = User.find_by(reset_password_token: token)
   
@@ -37,5 +32,11 @@ class PasswordsController < ApplicationController
     else
       render json: {error:  ['Link inválido ou expirado. Tente gerar um novo link.']}, status: :not_found
     end
+  end
+
+  private
+
+  def http_token
+    @token ||= (request.headers["Authorization"].split(" ").last if request.headers["Authorization"].present?)
   end
 end

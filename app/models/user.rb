@@ -35,6 +35,6 @@ class User < ApplicationRecord
    private
    
    def generate_token
-    SecureRandom.hex(10)
+     JwtGenerator.call(self)[:user][:auth_token]
    end
 end

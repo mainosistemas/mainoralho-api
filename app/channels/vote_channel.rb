@@ -1,27 +1,45 @@
 class VoteChannel < ApplicationCable::Channel
   def subscribed
-    # puts "parametros: #{params}"
+    stream_from "sprint_channel_#{room.number}"
 
-    room = params[:room]
+    puts("Parametros: #{params}")
 
-    stream_from "sprint_channel_#{room}"
-    puts "#{params}"
+    room.users << user unless room.users.include?(user)
 
-    user = User.find_by(email: params[:user][:email])
-    # armazena cada usuario conectado
-    # pegar usuarios da sessão
-    # notifica todos na sala
-
-    ActionCable.server.broadcast("sprint_channel_#{room}", { message: user, type: 'conectado', users: @users })
+    ActionCable.server.broadcast("sprint_channel_#{room.number}", { message: user, type: 'conectado', users: room.users})
   end
 
   def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
-    puts "Desconectar usuário #{params}"
-
     user = User.find_by(email: params[:user][:email])
-    room = params[:room]
+    room.users.delete(user)
+    ActionCable.server.broadcast("sprint_channel_#{room.number}", { message: user, type: 'desconectado' })
+  end
 
-    ActionCable.server.broadcast("sprint_channel_#{room}", { message: user, type: 'desconectado' })
+  def iniciar_votacao(arg)
+    task = Task.find(arg['task_id'])
+    puts "Iniciando votação uhull #{params}"
+    ActionCable.server.broadcast("sprint_channel_#{room.number}", { message: task, type: 'iniciar_votacao' })
+  end
+
+  def encerrar_votacao(arg)
+    task = Task.find(arg['task_id'])
+    puts "Encerrar votação uhull #{params}"
+    ActionCable.server.broadcast("sprint_channel_#{room.number}", { message: task, type: 'encerrar_votacao' })
+  end
+
+  def votar(arg)
+    puts "Vota #{arg}"
+    puts "Votando uhull #{params}"
+    ActionCable.server.broadcast("sprint_channel_#{room.number}", { message: arg['user_id'], type: 'votar' })
+  end
+
+  private
+
+  def user
+    @user ||= User.find_by(email: params[:user][:email])
+  end
+
+  def room
+    @room ||= Room.find_or_create_by!(sprint: Sprint.find(params[:room]))
   end
 end

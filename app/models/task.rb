@@ -9,6 +9,8 @@ class Task < ApplicationRecord
 
   enum status_votation: { nao_iniciado: 0, started: 1, finished: 2 }, _default: :not_started
 
+  def todosVotaram?; end
+
   def trend_voted
     votes_by_count = votes.group(:score).count
     max_value(votes_by_count)

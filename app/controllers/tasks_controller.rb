@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show update]
+  before_action :set_task, only: %i[show update destroy]
+  before_action :set_sprint, only: :index
 
   def index
     #return head :no_content if current_user.tasks.empty?
 
-    paginate json: current_user.tasks, status: :ok
+    paginate json: @sprint.tasks, status: :ok
   end
 
   def show
@@ -33,10 +34,22 @@ class TasksController < ApplicationController
     end
   end
 
+  def destroy
+    if @task.destroy
+      head :no_content
+    else
+      render json: @task.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_task
     @task = Task.find_by_id(params[:id])
+  end
+
+  def set_sprint
+    @sprint = Sprint.find(params[:sprint_id])
   end
 
   def task_params

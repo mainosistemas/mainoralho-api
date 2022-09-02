@@ -36,7 +36,7 @@ class SprintsController < ApplicationController
   end
 
   def sprints_by_project
-    @sprints = 
+    @sprints =
       if params[:project]
         current_user.sprints_by_project(params[:project])
       else

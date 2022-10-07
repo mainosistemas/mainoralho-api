@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   post 'password/forgot', to: 'passwords#forgot'
   post 'password/reset', to: 'passwords#reset'
 
+  post 'projects/listar', to: 'projects#index'
+  post 'sprints/listar', to: 'sprints#index'
+  post 'sprints/show', to: 'sprints#show'
+  post 'tasks/listar', to: 'tasks#index'
+
   resources :registrations, only: :create
 
   resources :projects

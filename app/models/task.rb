@@ -5,7 +5,7 @@ class Task < ApplicationRecord
 
   belongs_to :sprint
   belongs_to :owner, class_name: 'User'
-  has_many :votes, class_name: 'UserVote', dependent: :restrict_with_error
+  has_many :votes, class_name: 'UserVote', dependent: :destroy
 
   enum status_votation: { nao_iniciado: 0, started: 1, finished: 2 }
 

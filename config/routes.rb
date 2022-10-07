@@ -9,10 +9,11 @@ Rails.application.routes.draw do
   post 'sprints/listar', to: 'sprints#index'
   post 'sprints/show', to: 'sprints#show'
   post 'tasks/listar', to: 'tasks#index'
-
+  post 'tasks/destroy', to: 'tasks#destroy'
   resources :registrations, only: :create
 
   resources :projects
+  resources :tasks, only: :destroy
 
   resources :sprints, only: %i[index create show] do
     resources :tasks, only: :index

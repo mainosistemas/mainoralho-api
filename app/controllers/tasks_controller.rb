@@ -40,7 +40,7 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      head :no_content
+      render json: "deletado com sucesso"
     else
       render json: @task.errors.full_messages, status: :unprocessable_entity
     end

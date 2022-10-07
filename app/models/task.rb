@@ -7,13 +7,21 @@ class Task < ApplicationRecord
   belongs_to :owner, class_name: 'User'
   has_many :votes, class_name: 'UserVote', dependent: :restrict_with_error
 
-  enum status_votation: { nao_iniciado: 0, started: 1, finished: 2 }, _default: :not_started
-
-  def todosVotaram?; end
+  enum status_votation: { nao_iniciado: 0, started: 1, finished: 2 }
 
   def trend_voted
     votes_by_count = votes.group(:score).count
     max_value(votes_by_count)
+  end
+
+  def ja_votou_usuarios
+    sprint.room.users.map do |user|
+      { user_id: user.id, ja_votou: user_ja_votou?(user) }
+    end
+  end
+
+  def user_ja_votou?(user)
+    user.room.users.include?(user)
   end
 
   private

@@ -30,6 +30,16 @@ class VoteChannel < ApplicationCable::Channel
   def votar(arg)
     puts "Vota #{arg}"
     puts "Votando uhull #{params}"
+
+    if room.reload.todos_votaram?
+      task_em_votacao = room.task_em_votacao
+
+      task_em_votacao.update!(status_votation: :finished)
+
+      puts "todos votaram uhuul"
+      ActionCable.server.broadcast("sprint_channel_#{room.number}", { message: task_em_votacao.as_json(include: :votes, methods: :trend_voted), type: 'votacao_concluida' })
+    end
+
     ActionCable.server.broadcast("sprint_channel_#{room.number}", { message: arg['user_id'], type: 'votar' })
   end
 

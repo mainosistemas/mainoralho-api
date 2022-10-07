@@ -1,6 +1,4 @@
 class UserVote < ApplicationRecord
-  # after_create :publish_to_dashboard
-
   validates :score, presence: true
   # validates :voted_moment_time, presence: true
   # validates :task, uniqueness: { scope: :user }

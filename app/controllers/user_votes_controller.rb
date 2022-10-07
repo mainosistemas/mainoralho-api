@@ -10,8 +10,6 @@ class UserVotesController < ApplicationController
     @vote.task = @task
 
     if @vote.save
-      # ActionCable.server.broadcast("sprint_channel_#{@task.sprint_id}", { message: current_user.id, type: "vote" })
-
       render json: @vote, status: :created
     else
       render json: @vote.errors.full_messages, status: :unprocessable_entity

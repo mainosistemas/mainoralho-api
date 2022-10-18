@@ -16,7 +16,6 @@ gem 'rack-cors'
 gem 'rails', '~> 7.0.0.alpha2'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'will_paginate'
-gem 'redis', '~> 3.0'
 
 group :development, :test do
   gem 'debug', '>= 1.0.0', platforms: %i[ mri mingw x64_mingw ]

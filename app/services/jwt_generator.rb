@@ -21,6 +21,7 @@ class JwtGenerator
         auth_token: JsonWebToken.encode(
           { user_id: user.id, access_key: access_key }
         ),
+        id: id,
         email: user.email,
         name: user.name
       }

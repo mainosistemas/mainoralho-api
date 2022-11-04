@@ -5,8 +5,10 @@ class VoteChannel < ApplicationCable::Channel
     puts("Parametros: #{params}")
 
     unless room.users.include?(user)
-      user.tipo = room.sprint.owner == user ? :moderador : :player
-      user.save!
+      if user.tipo.nil?
+        user.tipo = room.sprint.owner == user ? :moderador : :player
+        user.save!
+      end
 
       room.users << user
     end

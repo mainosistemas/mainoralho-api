@@ -1,13 +1,12 @@
 class Room < ApplicationRecord
   belongs_to :sprint
 
-  has_many :user_rooms, dependent: :destroy
-  has_one :user, through: :user_rooms
+  has_many :users, dependent: :nullify
 
   def todos_votaram?
     return false if task_em_votacao.blank?
 
-    task_em_votacao.votes.count >= user_rooms.where(tipo: :player).count
+    task_em_votacao.votes.count >= users.count
   end
 
   def task_em_votacao

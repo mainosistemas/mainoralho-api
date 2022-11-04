@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'tasks/destroy', to: 'tasks#destroy'
   resources :registrations, only: :create
 
+  resources :users, only: :update
   resources :projects
   resources :tasks, only: :destroy
 

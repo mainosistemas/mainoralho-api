@@ -4,10 +4,12 @@ class VoteChannel < ApplicationCable::Channel
 
     puts("Parametros: #{params}")
 
-    room.users << user unless room.users.include?(user)
+    unless room.users.include?(user)
+      user.tipo = room.sprint.owner == user ? :moderador : :player
+      user.save!
 
-    user.tipo = room.sprint.owner == user ? :moderador : :player
-    user.save!
+      room.users << user
+    end
 
     ActionCable.server.broadcast("sprint_channel_#{room.number}", { message: user, type: 'conectado', users: room.users})
   end
